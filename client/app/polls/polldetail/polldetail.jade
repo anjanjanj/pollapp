@@ -1,4 +1,3 @@
-script(src="http://code.highcharts.com/highcharts.src.js")
 div(ng-include='"components/navbar/navbar.html"')
 
 .col-md-12
@@ -7,7 +6,7 @@ div(ng-include='"components/navbar/navbar.html"')
   //-<button ng-show="isAuthor" class="btn btn-warning" ng-click="addOption()">Add Option</button>
   h4(ng-show="poll.userAlreadyVoted && isLoggedIn()") You've voted in this poll!
   h4(ng-show="!poll.userAlreadyVoted && isLoggedIn()") We're waiting for your vote!
-  //-<canvas id="myChart" width="300" height="300"></canvas>
+  highchart#votesChart(config="chartConfig")
   ul(ng-repeat="(answer, votes) in poll.options")
       li {{answer}}: {{votes}}
       button.btn.btn-primary(ng-show="!poll.userAlreadyVoted && isLoggedIn()", ng-click="addVote(answer)") Vote!
