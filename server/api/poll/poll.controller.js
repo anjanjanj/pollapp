@@ -7,20 +7,26 @@ var Poll = require('./poll.model');
 
 // Get list of polls
 exports.index = function(req, res) {
-  Poll.find(function (err, polls) {
-    if(err) { return handleError(res, err); }
+  Poll.find(function(err, polls) {
+    if (err) {
+      return handleError(res, err);
+    }
     return res.status(200).json(polls);
   });
 };
 
 // Show all polls for one user
 exports.indexUserPolls = function(req, res) {
-  Poll.find(function (err, polls) {
-    if(err) { return handleError(res, err); }
-    if(!polls) { return res.status(404).send('Not Found'); }
+  Poll.find(function(err, polls) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!polls) {
+      return res.status(404).send('Not Found');
+    }
     return res.status(200).json(
-      polls.filter(function(poll){
-        return poll.author == req.params.userid;
+      polls.filter(function(poll) {
+        return poll.author === req.params.userid;
       })
     );
   });
@@ -28,31 +34,51 @@ exports.indexUserPolls = function(req, res) {
 
 // Get a single poll
 exports.show = function(req, res) {
-  Poll.findById(req.params.id, function (err, poll) {
-    if(err) { return handleError(res, err); }
-    if(!poll) { return res.status(404).send('Not Found'); }
+  Poll.findById(req.params.id, function(err, poll) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!poll) {
+      return res.status(404).send('Not Found');
+    }
     return res.json(poll);
   });
 };
 
 // Creates a new poll in the DB.
 exports.create = function(req, res) {
-  Poll.create(req.body, function(err, poll) {
-    if(err) { return handleError(res, err); }
-    return res.status(201).json(poll);
-  });
+  // is this needed? already checked in index.js
+  if (req.user._id) {
+    req.body.author = req.user._id;
+    Poll.create(req.body, function(err, poll) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.status(201).json(poll);
+    });
+  } else {
+    return res.status(500).send('Not logged in!');
+  }
 };
 
 // Updates an existing poll in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Poll.findById(req.params.id, function (err, poll) {
-    if (err) { return handleError(res, err); }
-    if(!poll) { return res.status(404).send('Not Found'); }
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  Poll.findById(req.params.id, function(err, poll) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!poll) {
+      return res.status(404).send('Not Found');
+    }
     var updated = _.extend(poll, req.body);
     // changed _.merge to _.extend as per https://github.com/clnhll/guidetobasejumps
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
+    updated.save(function(err) {
+      if (err) {
+        return handleError(res, err);
+      }
       return res.status(200).json(poll);
     });
   });
@@ -60,11 +86,17 @@ exports.update = function(req, res) {
 
 // Deletes a poll from the DB.
 exports.destroy = function(req, res) {
-  Poll.findById(req.params.id, function (err, poll) {
-    if(err) { return handleError(res, err); }
-    if(!poll) { return res.status(404).send('Not Found'); }
+  Poll.findById(req.params.id, function(err, poll) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!poll) {
+      return res.status(404).send('Not Found');
+    }
     poll.remove(function(err) {
-      if(err) { return handleError(res, err); }
+      if (err) {
+        return handleError(res, err);
+      }
       return res.status(204).send('No Content');
     });
   });

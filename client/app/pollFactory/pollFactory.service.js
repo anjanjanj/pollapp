@@ -33,7 +33,7 @@ angular.module('voteapp2App')
             }
           }
 
-          //console.log(poll);
+          console.log(poll);
           resolve(poll);
 
           //}, function failure(result) { reject(result); });
@@ -53,6 +53,7 @@ angular.module('voteapp2App')
             $http.put('/api/polls/' + pollId, poll).then(function success(res) {
               //console.log('response', JSON.stringify(res));
               //console.log('original poll', poll);
+              poll = res.data;
               poll.userAlreadyVoted = true;
               resolve(poll);
             }, function error(res) {
@@ -63,10 +64,26 @@ angular.module('voteapp2App')
       });
     }
 
+    function newPoll(title, choices) {
+      var options = {};
+
+      choices.forEach(function (option) {
+        options[option] = 0;
+      });
+
+      var newPollObject = {
+        title: title,
+        options: options
+      };
+
+      return $http.post('/api/polls', newPollObject);
+    }
+
     // Public API here
     return {
       getAllPolls: getAllPolls,
       getPollDetail: getPollDetail,
-      addVote: addVote
+      addVote: addVote,
+      newPoll: newPoll
     };
   });

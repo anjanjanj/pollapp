@@ -1,0 +1,10 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.col-md-12
+  h2 Create a new poll
+  form(ng-submit="myForm.addPoll()")
+    input#title(type="text", ng-model="myForm.title", ng-minlength="2", placeholder="Question")
+    br
+    textarea#choices(ng-model="myForm.choices", ng-list="\n", ng-trim="false", placeholder="Choices (1 per line)")
+    input(type="submit", value="Create")
+  p {{myForm.choices}}
