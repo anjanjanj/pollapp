@@ -1,5 +1,5 @@
 'use strict';
-
+//@TODO: add other pages into navbar, depending on login status
 angular.module('voteapp2App')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{

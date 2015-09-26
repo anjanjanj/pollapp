@@ -1,2 +1,7 @@
+div(ng-include='"components/navbar/navbar.html"')
+
 .col-md-12
-    | This is the allpolls view.
+  h2 All Polls
+  ul(ng-repeat="poll in polls")
+    li
+      a(ng-href="poll/{{poll._id}}"){{poll.title}}
