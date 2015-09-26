@@ -1,0 +1,9 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.col-md-12(ng-cloak)
+  h2 My Polls
+  ul(ng-repeat="poll in polls")
+    li
+      a(ng-href="poll/{{poll._id}}"){{poll.title}}
+  p(ng-hide="polls") You haven't created any polls yet! Go and make one!
+  

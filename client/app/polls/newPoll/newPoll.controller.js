@@ -1,5 +1,5 @@
 'use strict';
-//@TODO: add auth requirements to client routes as necessary
+//@TODO: add auth requirements to client routes as necessary - redirect to login page somehow
 angular.module('voteapp2App')
   .controller('NewPollCtrl', function ($scope, $location, pollFactory) {
 
@@ -9,8 +9,6 @@ angular.module('voteapp2App')
     //$scope.myForm.title = '';
 
     $scope.myForm.addPoll = function() {
-      console.log('Howdy!');
-      console.log($scope.myForm.choices);
       pollFactory.newPoll($scope.myForm.title, $scope.myForm.choices).then(
         function success(response) {
           $location.path('/poll/'+response.data._id);

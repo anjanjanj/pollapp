@@ -53,7 +53,7 @@ angular.module('voteapp2App')
             $http.put('/api/polls/' + pollId, poll).then(function success(res) {
               //console.log('response', JSON.stringify(res));
               //console.log('original poll', poll);
-              poll = res.data;
+              //poll = res.data;
               poll.userAlreadyVoted = true;
               resolve(poll);
             }, function error(res) {
