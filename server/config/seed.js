@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Poll = require('../api/poll/poll.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -46,4 +47,27 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
+});
+
+Poll.find({}).remove(function() {
+  Poll.create({
+    title: "McDonald's or KFC?",
+    author: 12345,
+    options: {
+      "McDonald's": 5,
+      "KFC":        2
+    }
+  },
+  {
+    title: "What's your favourite ice cream flavour?",
+    author: 12345,
+    options: {
+      "Chocolate":  10,
+      "Vanilla":    5,
+      "Strawberry": 8,
+      "Taro":       0
+    }
+  }, function() {
+    console.log('finished populating polls');
+  });
 });
