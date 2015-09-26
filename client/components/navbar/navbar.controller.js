@@ -5,6 +5,9 @@ angular.module('voteapp2App')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+      'title': 'All Polls',
+      'link': '/all'
     }];
 
     $scope.isCollapsed = true;

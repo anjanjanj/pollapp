@@ -5,3 +5,5 @@ div(ng-include='"components/navbar/navbar.html"')
   ul(ng-repeat="poll in polls")
     li
       a(ng-href="poll/{{poll._id}}"){{poll.title}}
+  p(ng-hide="polls") No polls here yet!    
+  
