@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('voteapp2App')
-  .controller('PolldetailCtrl', function($scope, pollFactory, $stateParams, Auth) {
+  .controller('PolldetailCtrl', function($scope, pollFactory, $stateParams, Auth, $location) {
 
     $scope.isLoggedIn = Auth.isLoggedIn;
     if ($scope.isLoggedIn()) {
@@ -28,6 +28,17 @@ angular.module('voteapp2App')
         //$scope.poll.alreadyVoted.pop();
         console.error(res);
       });
+    };
+
+    $scope.deletePoll = function() {
+      //@TODO: add modal confirmation
+      //if ($scope.poll.author === $scope.getCurrentUser()._id) {
+        pollFactory.deletePoll($scope.poll._id).then(function (res) {
+          $location.path('/my');
+        }, function(res) {
+          console.log(JSON.stringify(res));
+        });
+      //}
     };
 
     function populateGraph(pollOptions) {

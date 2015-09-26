@@ -79,11 +79,16 @@ angular.module('voteapp2App')
       return $http.post('/api/polls', newPollObject);
     }
 
+    function deletePoll(pollId) {
+      return $http.delete('/api/polls/'+pollId);
+    }
+
     // Public API here
     return {
       getAllPolls: getAllPolls,
       getPollDetail: getPollDetail,
       addVote: addVote,
-      newPoll: newPoll
+      newPoll: newPoll,
+      deletePoll: deletePoll
     };
   });

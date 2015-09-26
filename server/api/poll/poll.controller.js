@@ -48,7 +48,7 @@ exports.show = function(req, res) {
 // Creates a new poll in the DB.
 exports.create = function(req, res) {
   // is this needed? already checked in index.js
-  if (req.user._id) {
+  if (req.user && req.user._id) {
     req.body.author = req.user._id;
     Poll.create(req.body, function(err, poll) {
       if (err) {
@@ -92,6 +92,9 @@ exports.destroy = function(req, res) {
     }
     if (!poll) {
       return res.status(404).send('Not Found');
+    }
+    if ((!req.user) || (poll.author !== req.user._id)) {
+      return res.status(403).send('Permission Denied');
     }
     poll.remove(function(err) {
       if (err) {
