@@ -41,19 +41,20 @@ angular.module('voteapp2App')
       //}
     };
 
-    // @TODO: improve UI with adding option
-    $scope.addOption = function() {
+    $scope.addOption = function(newOption) {
       if ($scope.poll.author === $scope.getCurrentUser()._id) {
-        var newOption = window.prompt('What do you want the new option to be?');
+        // var newOption = window.prompt('What do you want the new option to be?');
         if (newOption && newOption !== '') {
           pollFactory.addOption($scope.poll, newOption).then(function success (result) {
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
             $scope.poll = result;
             populateGraph($scope.poll.options);
           }, function error (result) {
             console.error(result);
           });
         }
+        $scope.newOption = '';
+        $scope.addingOption = false;
       }
     };
 

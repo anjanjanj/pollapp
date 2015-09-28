@@ -6,8 +6,6 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
-// TODO: remove unused routes
-
 router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.get('/user/:userid', controller.indexUserPolls);

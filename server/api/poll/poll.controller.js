@@ -3,10 +3,9 @@
 var _ = require('lodash');
 var Poll = require('./poll.model');
 
-// *** TODO: add authentication for editing/deleting
-
 // Get list of polls
 exports.index = function(req, res) {
+  //console.log(req.ip);
   Poll.find(function(err, polls) {
     if (err) {
       return handleError(res, err);

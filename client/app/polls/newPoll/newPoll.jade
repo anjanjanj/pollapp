@@ -1,10 +1,24 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.col-md-12
-  h2 Create a new poll
-  form(ng-submit="myForm.addPoll()")
-    input#title(type="text", ng-model="myForm.title", ng-minlength="2", placeholder="Question")
-    br
-    textarea#choices(ng-model="myForm.choices", ng-list="\n", ng-trim="false", placeholder="Choices (1 per line)")
-    input(type="submit", value="Create")
-  p {{myForm.choices}}
+.container
+  .row
+    .col-lg-12
+      h2 Create a new poll
+      //-form(ng-submit="myForm.addPoll()")
+        input#title(type="text", ng-model="myForm.title", ng-minlength="2", placeholder="Question")
+        br
+        textarea#choices(ng-model="myForm.choices", ng-list="\n", ng-trim="false", placeholder="Choices (1 per line)")
+        input(type="submit", value="Create")
+      //-p {{myForm.choices}}
+      
+      form(ng-submit="myForm.addPoll()")
+        .form-group
+          label(for="pollTitle") Poll Title (required)
+          input.form-control(type="text", ng-model="myForm.title", placeholder="Who's the best singer ever?")
+        .form-group
+          label Choices (minimum 2)
+          .formchoice.form-inline(ng-repeat="placeHolder in myForm.placeHolders")
+            input.form-control(type="text", placeholder="{{placeHolder}}", ng-model="myForm.choices[$index]", required)
+            i.fa.fa-times(style="cursor:pointer; color:indianred", ng-click="removeChoice($index)")
+        a.btn.btn-default(ng-click="addChoice()") Add Choice
+        button.btn.btn-success(type="submit") Create

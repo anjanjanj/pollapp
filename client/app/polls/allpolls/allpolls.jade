@@ -1,9 +1,11 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.col-md-12
-  h2 All Polls
-  ul(ng-repeat="poll in polls")
-    li
-      a(ng-href="poll/{{poll._id}}"){{poll.title}}
-  p(ng-hide="polls") No polls here yet!    
-  
+.container
+  .row
+    .col-lg-12
+      h2 All Polls
+      ul(ng-repeat="poll in polls")
+        li
+          a(ng-href="poll/{{poll._id}}"){{poll.title}}
+      p(ng-hide="polls") No polls here yet!    
+      
