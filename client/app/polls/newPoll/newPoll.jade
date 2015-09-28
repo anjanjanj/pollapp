@@ -14,7 +14,7 @@ div(ng-include='"components/navbar/navbar.html"')
       form(ng-submit="myForm.addPoll()")
         .form-group
           label(for="pollTitle") Poll Title (required)
-          input.form-control(type="text", ng-model="myForm.title", placeholder="Who's the best singer ever?")
+          input.form-control(type="text", ng-model="myForm.title", placeholder="Who's the best singer ever?", required)
         .form-group
           label Choices (minimum 2)
           .formchoice.form-inline(ng-repeat="placeHolder in myForm.placeHolders")
