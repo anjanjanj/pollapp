@@ -40,6 +40,10 @@ exports.show = function(req, res) {
     if (!poll) {
       return res.status(404).send('Not Found');
     }
+    // if ((req.hasOwnProperty('user')) && (req.user.hasOwnProperty('_id'))) {
+    //   poll.userAlreadyVoted = Poll.checkVoted(req.user._id);
+    //   console.log(poll);
+    // }
     return res.json(poll);
   });
 };

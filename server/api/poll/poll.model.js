@@ -10,4 +10,9 @@ var PollSchema = new Schema({
   alreadyVoted: []
 });
 
+
+PollSchema.methods.checkVoted = function(userId) {
+  return this.alreadyVoted.indexOf(userId) > -1;
+};
+
 module.exports = mongoose.model('Poll', PollSchema);

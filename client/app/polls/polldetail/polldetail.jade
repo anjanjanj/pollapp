@@ -8,7 +8,7 @@ div(ng-include='"components/navbar/navbar.html"')
       button.btn.btn-warning(ng-show="poll.userIsAuthor", ng-click="addingOption = true") Add Option
       form.form-inline(ng-submit="addOption(newOption)" ng-show="addingOption")
         .form-group
-          input.form-control(type="text", ng-model="newOption", placeholder="Enter option here")
+          input.form-control(type="text", ng-model="newOption", placeholder="Enter option here", required)
           button.btn.btn-default(type="submit") Add
       p
         a(ng-show="poll.userIsAuthor && isLoggedIn()" target="_blank", ng-href="{{ poll.twitterLink }}") Share this poll on Twitter!
