@@ -41,6 +41,21 @@ angular.module('voteapp2App')
       //}
     };
 
+    $scope.addOption = function() {
+      if ($scope.poll.author === $scope.getCurrentUser()._id) {
+        var newOption = window.prompt('What do you want the new option to be?');
+        if (newOption && newOption !== '') {
+          pollFactory.addOption($scope.poll, newOption).then(function success (result) {
+            console.log(JSON.stringify(result));
+            $scope.poll = result;
+            populateGraph($scope.poll.options);
+          }, function error (result) {
+            console.error(result);
+          });
+        }
+      }
+    };
+
     function populateGraph(pollOptions) {
       // ["option1": 5, "option3": 3]
       $scope.chartConfig.series[0].data = [];

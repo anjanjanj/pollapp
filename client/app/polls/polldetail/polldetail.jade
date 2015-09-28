@@ -3,7 +3,7 @@ div(ng-include='"components/navbar/navbar.html"')
 .col-md-12
   h2 {{ poll.title }}
   button.btn.btn-danger(ng-show="poll.userIsAuthor", ng-click="deletePoll()") Delete Poll
-  //-<button ng-show="isAuthor" class="btn btn-warning" ng-click="addOption()">Add Option</button>
+  button.btn.btn-warning(ng-show="poll.userIsAuthor", ng-click="addOption()") Add Option
   h4(ng-show="poll.userAlreadyVoted && isLoggedIn()") You've voted in this poll!
   h4(ng-show="!poll.userAlreadyVoted && isLoggedIn()") We're waiting for your vote!
   highchart#votesChart(config="chartConfig")

@@ -67,7 +67,7 @@ angular.module('voteapp2App')
     function newPoll(title, choices) {
       var options = {};
 
-      choices.forEach(function (option) {
+      choices.forEach(function(option) {
         options[option] = 0;
       });
 
@@ -80,7 +80,20 @@ angular.module('voteapp2App')
     }
 
     function deletePoll(pollId) {
-      return $http.delete('/api/polls/'+pollId);
+      return $http.delete('/api/polls/' + pollId);
+    }
+
+    function addOption(poll, newOption) {
+      return $q(function(resolve, reject) {
+
+        $http.patch('/api/polls/option/' + poll._id, {'option': newOption}).then(function success(result) {
+          //console.log(result);
+          poll.options[newOption] = 0;
+          resolve(poll);
+        }, function failure(result) {
+          reject(result);
+        });
+      });
     }
 
     // Public API here
@@ -89,6 +102,7 @@ angular.module('voteapp2App')
       getPollDetail: getPollDetail,
       addVote: addVote,
       newPoll: newPoll,
-      deletePoll: deletePoll
+      deletePoll: deletePoll,
+      addOption: addOption
     };
   });

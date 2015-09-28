@@ -13,7 +13,8 @@ router.get('/:id', controller.show);
 router.get('/user/:userid', controller.indexUserPolls);
 router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
+//router.patch('/:id', controller.update);
+router.delete('/:id', auth.isAuthenticated(), controller.destroy);
+router.patch('/option/:id', auth.isAuthenticated(), controller.addOption);
 
 module.exports = router;

@@ -84,6 +84,45 @@ exports.update = function(req, res) {
   });
 };
 
+// add a new option to the poll
+exports.addOption = function(req, res) {
+  //console.log(JSON.stringify(req.body));
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  Poll.findById(req.params.id, function(err, poll) {
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!poll) {
+      return res.status(404).send('Not Found');
+    }
+    if ((!req.user) || (poll.author != req.user._id)) {
+      return res.status(403).send('Permission Denied');
+    }
+    var newOption = req.body.option;
+    var newPollItem = {};
+    newPollItem.options = {};
+    newPollItem.options[newOption] = 0;
+    //newPollItem.options.push({ newOption: 0 });
+    //console.log(JSON.stringify(newPollItem));
+    //console.log(req.body);
+    // newPoll.options[newOption] = 0;
+    poll.options = _.extend(poll.options, newPollItem.options);
+    poll.markModified('options');
+    //console.log(poll);
+    //console.log(JSON.stringify(_.merge(poll.options, newPollItem.options)));
+    //var updated = _.extend(poll, newPollItem);
+    // changed _.merge to _.extend as per https://github.com/clnhll/guidetobasejumps
+    poll.save(function(err) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.status(200).json(poll);
+    });
+  });
+}
+
 // Deletes a poll from the DB.
 exports.destroy = function(req, res) {
   Poll.findById(req.params.id, function(err, poll) {
@@ -93,7 +132,7 @@ exports.destroy = function(req, res) {
     if (!poll) {
       return res.status(404).send('Not Found');
     }
-    if ((!req.user) || (poll.author !== req.user._id)) {
+    if ((!req.user) || (poll.author != req.user._id)) {
       return res.status(403).send('Permission Denied');
     }
     poll.remove(function(err) {
