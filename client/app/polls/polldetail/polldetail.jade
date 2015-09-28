@@ -4,7 +4,7 @@ div(ng-include='"components/navbar/navbar.html"')
   .row
     .col-lg-12
       h2 {{ poll.title }}
-      button.btn.btn-danger(ng-show="poll.userIsAuthor", ng-click="deletePoll()") Delete Poll
+      button.btn.btn-danger(ng-show="poll.userIsAuthor", ng-click="deletePoll(poll.title, poll)") Delete Poll
       button.btn.btn-warning(ng-show="poll.userIsAuthor", ng-click="addingOption = true") Add Option
       form.form-inline(ng-submit="addOption(newOption)" ng-show="addingOption")
         .form-group
