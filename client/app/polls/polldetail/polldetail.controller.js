@@ -30,8 +30,8 @@ angular.module('voteapp2App')
       });
     };
 
+    //@TODO: add modal confirmation
     $scope.deletePoll = function() {
-      //@TODO: add modal confirmation
       //if ($scope.poll.author === $scope.getCurrentUser()._id) {
         pollFactory.deletePoll($scope.poll._id).then(function (res) {
           $location.path('/my');
@@ -41,6 +41,7 @@ angular.module('voteapp2App')
       //}
     };
 
+    // @TODO: improve UI with adding option
     $scope.addOption = function() {
       if ($scope.poll.author === $scope.getCurrentUser()._id) {
         var newOption = window.prompt('What do you want the new option to be?');

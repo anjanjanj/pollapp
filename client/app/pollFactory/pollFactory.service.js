@@ -1,10 +1,16 @@
 'use strict';
 
 angular.module('voteapp2App')
-  .factory('pollFactory', function($http, Auth, $q) {
+  .factory('pollFactory', function($http, Auth, $q, $location) {
 
     function getAllPolls() {
       return $http.get('/api/polls');
+    }
+
+    function makeTwitterLink(poll) {
+      var pollName = encodeURIComponent('Poll: ' + poll.title + ' ');
+      var pollLink = $location.absUrl();
+      return ('http://twitter.com/home?status=' + pollName + pollLink);
     }
 
     function getPollDetail(id) {
@@ -32,6 +38,8 @@ angular.module('voteapp2App')
               poll.userAlreadyVoted = false;
             }
           }
+
+          poll.twitterLink = makeTwitterLink(poll);
 
           console.log(poll);
           resolve(poll);
